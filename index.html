@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Daily Habit Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+</head>
+<body>
+
+  <main class="page">
+    <header class="hero">
+      <h1>My Daily</h1>
+      <h2>Habit Tracker</h2>
+
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+  🌙
+</button>
+
+<button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+  ☰
+</button>
+
+    </header>
+
+    <section class="tracker-card">
+      <div class="days">
+        <div class="day">M</div>
+        <div class="day">T</div>
+        <div class="day">W</div>
+        <div class="day">T</div>
+        <div class="day">F</div>
+        <div class="day">S</div>
+        <div class="day">S</div>
+      </div>
+
+      <div class="progress-section" id="progressSection">
+  <div class="progress-header">
+    <h3>Today's Progress</h3>
+    <span id="progressText">0%</span>
+  </div>
+
+  <div class="progress-section" id="streakSection">
+
+    <div class="streak-card">
+      <div class="streak-icon">🔥</div>
+
+      <div>
+        <h3>Current Streak</h3>
+        <strong id="streakCount">0 days</strong>
+      </div>
+    </div>
+
+    <div class="streak-card longest-streak-card">
+    <div class="streak-icon">🏆</div>
+
+    <div>
+        <h3>Longest Streak</h3>
+        <p id="longestStreakCount">0 days</p>
+    </div>
+</div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <p id="progressDetails">0 completed</p>
+</div>
+
+      <button class="add-btn" id="addHabit">＋ Add Habit</button>
+
+      <button class="history-btn" id="historyButton">📅 History </button>
+<input
+    type="file"
+    id="backupFile"
+    accept=".json"
+    style="display: none;"
+>
+
+      <div class="history-modal" id="historyModal">
+
+    <div class="history-box">
+
+        <button
+            class="history-close"
+            id="historyClose"
+        >
+            ×
+        </button>
+
+        <h2>📅 Habit History</h2>
+
+        <div class="history-header">
+
+            <button id="previousMonth">
+                ‹
+            </button>
+
+            <h3 id="historyMonth">
+                October 2026
+            </h3>
+
+            <button id="nextMonth">
+                ›
+            </button>
+
+        </div>
+
+
+        <div class="calendar">
+          
+
+            <div class="calendar-day-name">M</div>
+            <div class="calendar-day-name">T</div>
+            <div class="calendar-day-name">W</div>
+            <div class="calendar-day-name">T</div>
+            <div class="calendar-day-name">F</div>
+            <div class="calendar-day-name">S</div>
+            <div class="calendar-day-name">S</div>
+
+        </div>
+
+        <div class="history-legend">
+
+    <span>
+        <i class="legend-dot complete"></i>
+        Complete
+    </span>
+
+    <span>
+        <i class="legend-dot partial"></i>
+        Partial
+    </span>
+
+    <span>
+        <i class="legend-dot missed"></i>
+        Missed
+    </span>
+
+</div>
+
+        <div
+            class="history-details"
+            id="historyDetails"
+        >
+            <p>
+                Select a date to see your habit details.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+      <div class="modal" id="habitModal">
+        <div class="modal-box">
+          <button class="close-btn"
+          id="closeModal">x</button>
+
+          <h2>Add New Habit</h2>
+
+          <input
+          type="text"
+          id="habitInput"
+          placeholder="Enter habit name"
+          ></imput>
+
+          <button class="save-habit" id="saveHabit">➕ Add Habit</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="statistics-section" id="statisticsSection">
+
+    <h2>📊 Statistics</h2>
+
+    <div class="statistics-overview">
+
+    <div class="overview-score">
+        <div class="score-circle">
+            <span id="overviewScore">0%</span>
+        </div>
+        <span>Score</span>
+    </div>
+
+    <div class="overview-item">
+        <strong id="monthlyChange">0%</strong>
+        <span>Month</span>
+    </div>
+
+    <div class="overview-item">
+        <strong id="yearlyChange">0%</strong>
+        <span>Year</span>
+    </div>
+
+    <div class="overview-item">
+        <strong id="totalDays">0</strong>
+        <span>Total Days</span>
+    </div>
+
+</div>
+
+    <div class="stats-cards">
+
+        <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div>
+                <h3>Weekly Progress</h3>
+                <strong id="weeklyProgress">0%</strong>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div>
+                <h3>Overall Completion</h3>
+                <strong id="overallProgress">0%</strong>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">🏆</div>
+            <div>
+                <h3>Best Habit</h3>
+                <strong id="bestHabit">-</strong>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">📉</div>
+            <div>
+                <h3>Needs Improvement</h3>
+                <strong id="worstHabit">-</strong>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="chart-card">
+
+
+        <div
+            class="weekly-chart"
+            id="weeklyChart"
+        >
+            <!-- Graph will be generated with JavaScript -->
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================================
+     ACHIEVEMENTS
+================================ -->
+
+<section class="achievements-section" id="achievementsSection">
+
+    <h2>🏆 Achievements</h2>
+
+    <div class="achievement-grid">
+
+        <div class="achievement-card locked" id="achievement3Day">
+            <div class="achievement-icon">🔥</div>
+
+            <div class="achievement-info">
+                <h3>3 Day Streak</h3>
+                <p>Complete all habits for 3 days continuously.</p>
+            </div>
+
+            <span class="achievement-status">🔒</span>
+        </div>
+
+
+        <div class="achievement-card locked" id="achievement7Day">
+            <div class="achievement-icon">🔥</div>
+
+            <div class="achievement-info">
+                <h3>7 Day Streak</h3>
+                <p>Complete all habits for 7 days continuously.</p>
+            </div>
+
+            <span class="achievement-status">🔒</span>
+        </div>
+
+
+        <div class="achievement-card locked" id="achievementPerfectDay">
+            <div class="achievement-icon">💯</div>
+
+            <div class="achievement-info">
+                <h3>Perfect Day</h3>
+                <p>Complete every habit in one day.</p>
+            </div>
+
+            <span class="achievement-status">🔒</span>
+        </div>
+
+
+        <div class="achievement-card locked" id="achievement10Perfect">
+            <div class="achievement-icon">🎯</div>
+
+            <div class="achievement-info">
+                <h3>10 Perfect Days</h3>
+                <p>Complete all habits on 10 different days.</p>
+            </div>
+
+            <span class="achievement-status">🔒</span>
+        </div>
+
+
+        <div class="achievement-card locked" id="achievement30Habit">
+            <div class="achievement-icon">💪</div>
+
+            <div class="achievement-info">
+                <h3>Habit Master</h3>
+                <p>Complete a habit 30 times.</p>
+            </div>
+
+            <span class="achievement-status">🔒</span>
+        </div>
+
+ 
+        <div class="achievement-card locked" id="achievement30Day">
+            <div class="achievement-icon">🌟</div>
+
+            <div class="achievement-info">
+                <h3>Consistency King</h3>
+                <p>Maintain a 30 day streak.</p>
+            </div>
+
+            <span class="achievement-status">🔒</span>
+        </div>
+
+    </div>
+
+</section>
+
+    <section class="notes-area">
+      <div class="note">
+        <h3>Reminder</h3>
+        <p>It's okay to go slow.</p>
+        <p>Small steps every day.</p>
+      </div>
+
+      <div class="note notes">
+        <h3>NOTES</h3>
+        <textarea id="notesInput" placeholder="Write something..."></textarea>
+      </div>
+
+      <div class="note quote">
+     <p id="dailyMotivation">
+        One day<br>or a day one.<br><b>You decide.</b>
+     </p>
+     </div>
+    </section>
+
+    <footer>Be patient with yourself ♡ You're growing every day.</footer>
+  </main>
+
+  <!-- =========================
+     MENU PAGE
+========================= -->
+
+<div class="menu-page" id="menuPage">
+
+    <div class="menu-page-header">
+
+        <button class="menu-back" id="menuBack">
+            ←
+        </button>
+
+        <h2>⚙️ Settings</h2>
+
+    </div>
+
+
+    <div class="menu-section">
+
+        <h3>Appearance</h3>
+
+        <div class="menu-card">
+
+            <div>
+                <strong>🌙 Dark Mode</strong>
+                <p>Change the appearance of the app.</p>
+            </div>
+
+            <button
+                class="theme-switch"
+                id="pageThemeSwitch"
+                aria-label="Toggle dark mode"
+            >
+                <span class="theme-switch-knob"></span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="menu-section">
+
+        <h3>Data</h3>
+
+        <div class="menu-card menu-action" id="pageExport">
+            <span>💾 Export Backup</span>
+            <span>›</span>
+        </div>
+
+        <div class="menu-card menu-action" id="pageImport">
+            <span>📥 Import Backup</span>
+            <span>›</span>
+        </div>
+
+    </div>
+
+
+    <div class="menu-section">
+
+        <h3>Information</h3>
+
+        <div class="menu-card menu-action" id="pageAbout">
+            <span>ℹ️ About Habit Tracker</span>
+            <span>›</span>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     ABOUT PAGE
+========================= -->
+
+<div class="about-page" id="aboutPage">
+
+    <div class="about-page-header">
+
+        <button class="about-back" id="aboutBack">
+            ←
+        </button>
+
+        <h2>ℹ️ About</h2>
+
+    </div>
+
+
+    <div class="about-card">
+
+        <div class="about-icon">
+            🌸
+        </div>
+
+        <h1>Habit Tracker</h1>
+
+        <p class="about-version">
+            Version 1.0
+        </p>
+
+        <p>
+            A simple and beautiful habit tracker designed to
+            help you build better habits, stay consistent,
+            and understand your progress.
+        </p>
+
+    </div>
+
+
+    <div class="about-section">
+
+        <h3>✨ Features</h3>
+
+        <div class="about-list">
+            <p>🔥 Habit streak tracking</p>
+            <p>📅 History & calendar</p>
+            <p>📊 Statistics & graphs</p>
+            <p>🏆 Achievements & badges</p>
+            <p>🌙 Dark mode</p>
+            <p>💾 Export & import backup</p>
+            <p>📱 Mobile responsive design</p>
+            <p>⚡ PWA & offline support</p>
+        </div>
+
+    </div>
+
+    <div class="about-section">
+
+    <h3>👨‍💻 Creator</h3>
+
+    <div class="creator-card">
+
+        <div class="creator-avatar">
+            👨‍💻
+        </div>
+
+        <div>
+            <h4>OVAISH</h4>
+
+            <p>
+                Computer Science Student & Developer
+            </p>
+
+            <p>
+                Built this project while learning web development
+                and turning ideas into practical projects.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+    <div class="about-section">
+
+        <h3>🛠️ Built With</h3>
+
+        <div class="about-tech">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>LocalStorage</span>
+        </div>
+
+    </div>
+
+
+    <div class="about-footer">
+
+        <p>Made with ❤️ while learning and building.</p>
+
+    </div>
+
+</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
